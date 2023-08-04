@@ -42,8 +42,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      groceries: groceries
-    }
+      groceries
+    };
   }
   // Class methods to update state
   addItem = (e, item) => {
@@ -53,8 +53,24 @@ class App extends React.Component {
       id: Date.now(),
       purchased: false
     }
-    this.setState({...this.state, groceries: [...this.state.groceries, newItem]});
+    this.setState({
+      groceries: [...this.state.groceries, newItem]
+    });
   }
+
+  toggleItem = itemId => {
+    this.setState({
+      groceries: this.state.groceries.map(item => {
+        if (itemId === item.id) {
+          return {
+            ...item,
+            purchased: !item.purchased
+          };
+        }
+        return item;
+      })
+    });
+  };
 
   render() {
     return (

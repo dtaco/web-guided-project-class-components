@@ -2,18 +2,37 @@ import React from "react";
 
 class ListForm extends React.Component {
   // Constructor with state
+  constructor() {
+    super();
+    this.state = {
+      item: ''
+    };
+  }
 
   handleChanges = e => {
     // update state with each keystroke
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value});
   };
 
   // class property to submit form
 
+  submitItem = e => {
+    e.preventDefault();
+    this.setState({ item: '' });
+    this.props.addItem(e, this.state.item);
+  };
+
   render() {
+    console.log('rendering form...')
     return (
-      <form>
-        {/* This is an uncontrolled component 😬 We want it to be controlled by state */}
-        <input type="text" name="item" />
+      <form onSubmit={this.submitItem}>
+        <input 
+        type="text" 
+        name="item" 
+        value={this.state.item}
+        onChange={this.handleChanges}
+        />
         <button>Add</button>
       </form>
     );

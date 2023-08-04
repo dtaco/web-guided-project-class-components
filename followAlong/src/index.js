@@ -72,15 +72,26 @@ class App extends React.Component {
     });
   };
 
+  clearPurchased = e => {
+    e.preventDefault();
+    this.setState({
+      groceries: this.state.groceries.filter(item => !item.purchased)
+    });
+  };
+
   render() {
+    console.log('rendering!')
     return (
       <div className="App">
         <div className="header">
            <h1>Shopping List</h1>
            <ListForm addItem={this.addItem}/>
          </div>
-        <GroceryList groceries={this.state.groceries} />
-        <button className="clear-btn">Clear Purchased</button>
+        <GroceryList 
+        groceries={this.state.groceries} 
+        toggleItem={this.toggleItem}
+        clearPurchased={this.clearPurchased}
+        />
        </div>
     );
   }
